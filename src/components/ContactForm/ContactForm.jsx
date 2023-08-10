@@ -1,5 +1,4 @@
 import { toast } from 'react-hot-toast';
-import { nanoid } from 'nanoid';
 import { Button, Input, Text, Wrap } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
@@ -20,13 +19,13 @@ const ContactForm = () => {
     };
     // console.log(newContact);
 
-    // if (
-    //   contacts.find(
-    //     contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
-    //   )
-    // ) {
-    //   return toast.error(`${newContact.name} is already in contacts`);
-    // }
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+      )
+    ) {
+      return toast.error(`${newContact.name} is already in contacts`);
+    }
 
     dispatch(addContacts(newContact));
     form.reset();

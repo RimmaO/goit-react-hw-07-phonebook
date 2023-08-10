@@ -14,8 +14,8 @@ const ContactList = () => {
   return (
     <ul>
       {getFilterContacts &&
-        getFilterContacts.map(({ id, name, phone }) => (
-          <ContactListItem key={id} id={id} name={name} number={phone} />
+        getFilterContacts.map(({ id, name, number }) => (
+          <ContactListItem key={id} id={id} name={name} number={number} />
         ))}
     </ul>
   );
