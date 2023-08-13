@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchContacts } from 'redux/operation';
 import { selectError, selectIsLoading } from 'redux/selectors';
+import Loader from './Loader/Loader';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -21,13 +22,14 @@ export default function App() {
   return (
     <>
       <Toaster />
+      {isLoading && !error && <Loader />}
       <Section title="Phonebook">
         <ContactForm />
       </Section>
 
       <Section title="Contacts">
         <Filter />
-        {isLoading && !error && <b>Request in progress...</b>}
+
         <ContactList />
       </Section>
     </>
