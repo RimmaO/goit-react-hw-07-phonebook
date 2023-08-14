@@ -3,25 +3,16 @@ import { Button } from 'components/ContactForm/ContactForm.styled';
 import { Item, Span } from './ContactListItem.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContacts } from 'redux/operation';
-import { toast } from 'react-hot-toast';
-import { selectIsLoading } from 'redux/selectors';
-import { useEffect } from 'react';
+import { selectError, selectIsLoading } from 'redux/selectors';
 import Loader from 'components/Loader/Loader';
 
 const ContactListItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
 
   const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
-  useEffect(() => {
-    return () => {
-      if (isLoading === id) {
-        toast.error(`You have removed ${name} from your contacts`);
-      }
-    };
-  }, [id, isLoading, name]);
-
-  const handleDelete = () => dispatch(deleteContacts(id));
+  const handleDelete = () => dispatch(deleteContacts({ id, name }));
 
   return (
     <Span>
@@ -29,7 +20,7 @@ const ContactListItem = ({ id, name, number }) => {
         {name}: {number}
       </Item>
       <Button onClick={handleDelete}>
-        Delete {isLoading === id && <Loader />}
+        Delete {isLoading && !error && <Loader />}
       </Button>
     </Span>
   );
